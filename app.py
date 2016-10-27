@@ -7,6 +7,8 @@ import config
 from werkzeug.utils import secure_filename
 #add requests. Gets the request in json
 
+import run_command
+
 import os
 abspath = os.path.abspath('app.py')
 dirpath = os.path.dirname(abspath)
@@ -73,6 +75,9 @@ def post_file():
         return redirect(request)
     else:
         return redirect(request.url)
+@app.route('/run', methods=['POST'])
+def run_command():
+    run_command.run_command(request)
 
 if __name__ == '__main__':
     app.run(debug=True)
