@@ -3,11 +3,16 @@ from flask import Flask, render_template, jsonify, request, redirect, url_for
 import sqlite3
 import requests
 import json
+import config
 from werkzeug.utils import secure_filename
 #add requests. Gets the request in json
+
 import os
+abspath = os.path.abspath('app.py')
+dirpath = os.path.dirname(abspath)
+os.chdir(dirpath)
+
 app = Flask(__name__)
-DATABASE_PATH='/home/rpi/Documents/api/rave.db'
 #curl -H "Content-type: application/json" -X POST -F "filename=test.jpg" http://127.0.0.1:5000/file
 #curl -X POST -F 'file=@"test.jpg"' http://127.0.0.1:5000/file
 
@@ -15,7 +20,7 @@ DATABASE_PATH='/home/rpi/Documents/api/rave.db'
 def get_parameter():
     
 
-    conn = sqlite3.connect(DATABASE_PATH)
+    conn = sqlite3.connect(config.DATABASE_NAME)
     with conn:
         cur = conn.cursor()
         #conn.execute("INSERT INTO PARAMETER (ID,NAME,VALUE) VALUES (6,'-led-slowdown-gpio','1')")
@@ -35,7 +40,7 @@ def get_parameter():
 @app.route('/parameter', methods=['PUT'])
 def set_parameter():
     
-    conn = sqlite3.connect('/home/rpi/Documents/api/rave.db')
+    conn = sqlite3.connect(config.DATABASE_NAME)
     #print(str(parameter))
     
     value = request.json['value']
@@ -47,12 +52,11 @@ def set_parameter():
     conn.close()
     
     return jsonify({'name':name,'value': value})
-UPLOAD_FOLDER = "~/Documents/api/"
-app.config['UPLOAD_FOLDER']= UPLOAD_FOLDER
+
+
 @app.route('/file', methods=['POST'])
 def post_file():
     print(request.files)
-    os.system("ls Documents/api/")
     if 'file' not in request.files:
         print("file not in requuest")
         return redirect(request.url)
@@ -63,8 +67,8 @@ def post_file():
         filename = secure_filename(file.filename)
         print("Try to save")
         os.path.join('../../')
-        file.save(os.path.join("bah"))
-        #file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        #file.save(os.path.join("bah"))
+        file.save(os.path.join(config.UPLOAD_FOLDER, filename))
         print("saved")
         return redirect(request)
     else:
