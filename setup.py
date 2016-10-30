@@ -25,6 +25,10 @@ try:
     os.system('make')
     os.chdir('examples-api-use')
     os.system('make')
+    os.chdir('../utils')
+    os.system('sudo apt-get install libgraphicsmagick++-dev libwebp-dev -y')
+    os.system('make led-image-viewer')
+
 
 except Exception as e:
     print ('Failed to make files')

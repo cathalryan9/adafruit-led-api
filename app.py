@@ -1,13 +1,12 @@
 #!flask/bin/python
 from flask import Flask, render_template, jsonify, request, redirect, url_for
 import sqlite3
-import requests
 import json
 import config
 from werkzeug.utils import secure_filename
 #add requests. Gets the request in json
 
-import run_command
+import run_command as rc
 
 import os
 abspath = os.path.abspath('app.py')
@@ -15,6 +14,8 @@ dirpath = os.path.dirname(abspath)
 os.chdir(dirpath)
 
 app = Flask(__name__)
+#curl -H "Content-type: application/json" -X POST -D {'file': 'runtext.ppm' }  http://127.0.0.1:5000/run
+
 #curl -H "Content-type: application/json" -X POST -F "filename=test.jpg" http://127.0.0.1:5000/file
 #curl -X POST -F 'file=@"test.jpg"' http://127.0.0.1:5000/file
 
@@ -25,9 +26,8 @@ def get_parameter():
     conn = sqlite3.connect(config.DATABASE_NAME)
     with conn:
         cur = conn.cursor()
-        #conn.execute("INSERT INTO PARAMETER (ID,NAME,VALUE) VALUES (6,'-led-slowdown-gpio','1')")
-        #conn.execute('CREATE TABLE PARAMETER (ID INT PRIMARY KEY,NAME TEXT NOT NULL, VALUE TEXT);')   
-        brightness = cur.execute("SELECT * FROM PARAMETER")
+
+        cur.execute("SELECT * FROM PARAMETER")
         rows = cur.fetchall()
         parameters=[]
         for row in rows:
@@ -75,9 +75,20 @@ def post_file():
         return redirect(request)
     else:
         return redirect(request.url)
+
 @app.route('/run', methods=['POST'])
 def run_command():
-    run_command.run_command(request)
+    print(request.data)
+
+    file = request.json['file']
+    print(file)
+    if file.endswith('.ppm'):
+        rc.run_command_ppm(file)
+    elif file.endswith(('.gif','.jpg','.jpeg')):
+        rc.run_command_gif(file)
+
+    return redirect(request.url)
+
 
 if __name__ == '__main__':
     app.run(debug=True)
