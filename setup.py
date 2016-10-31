@@ -15,8 +15,21 @@ if not os.path.isfile(config.DATABASE_NAME):
     conn = sqlite3.connect(config.DATABASE_NAME)
     with conn:
         conn.execute('CREATE TABLE PARAMETER (ID INT PRIMARY KEY,NAME TEXT NOT NULL, VALUE TEXT);')
+        conn.execute('CREATE TABLE FILES (ID INT PRIMARY KEY,NAME TEXT NOT NULL);')
+
+        print('Populating database')
+        conn.execute('INSERT INTO PARAMETER (NAME, VALUE) VALUES ("--led-brightness", "30");')
+        conn.execute('INSERT INTO PARAMETER (NAME, VALUE) VALUES ("--led-gpio-mapping", "adafruit-hat");')
+        conn.execute('INSERT INTO PARAMETER (NAME, VALUE) VALUES ("-t", "10");')
+        conn.execute('INSERT INTO PARAMETER (NAME, VALUE) VALUES ("-m", "100");')
+        conn.execute('INSERT INTO PARAMETER (NAME, VALUE) VALUES ("-R", "0");')
+
+
 else:
     print('Database %s already exists' % config.DATABASE_NAME)
+
+# TODO: Populate PARAMETER table with default values
+# TODO: Install virtualenv and flask
 
 # TODO: Make all files. Look in all directories for Makefile. Make if there is one.
 try:
