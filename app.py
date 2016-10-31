@@ -14,7 +14,7 @@ dirpath = os.path.dirname(abspath)
 os.chdir(dirpath)
 
 app = Flask(__name__)
-#curl -H "Content-type: application/json" -X POST -D {'file': 'runtext.ppm' }  http://127.0.0.1:5000/run
+#curl -H "Content-type: application/json" -X POST -d {'file': 'runtext.ppm' }  http://127.0.0.1:5000/run
 
 #curl -H "Content-type: application/json" -X POST -F "filename=test.jpg" http://127.0.0.1:5000/file
 #curl -X POST -F 'file=@"test.jpg"' http://127.0.0.1:5000/file
@@ -60,7 +60,7 @@ def set_parameter():
 def post_file():
     print(request.files)
     if 'file' not in request.files:
-        print("file not in requuest")
+        print("file not in request")
         return redirect(request.url)
     file = request.files['file']
     print(file.filename)
@@ -72,6 +72,15 @@ def post_file():
         #file.save(os.path.join("bah"))
         file.save(os.path.join(config.UPLOAD_FOLDER, filename))
         print("saved")
+        conn = sqlite3.connect(config.DATABASE_NAME)
+        # print(str(parameter))
+
+        name = request.json['name']
+        # TODO don't add duplicates
+        cmd = "INSERT INTO FILE (NAME) VALUES ('" + name + "')"
+        conn.execute(cmd)
+        conn.commit()
+        conn.close()
         return redirect(request)
     else:
         return redirect(request.url)
@@ -89,6 +98,22 @@ def run_command():
 
     return redirect(request.url)
 
+@app.route('/file', methods=['GET'])
+def get_files():
+    conn = sqlite3.connect(config.DATABASE_NAME)
+    with conn:
+        cur = conn.cursor()
+
+        cur.execute("SELECT * FROM FILES")
+        rows = cur.fetchall()
+        files = []
+        for row in rows:
+            value = {'id': row[0], 'name': row[1]}
+            files.append(value)
+
+        conn.commit()
+
+    return jsonify({'file': files})
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True,host=config.HOST_IP_ADDRESS + ':' + config.HOST_PORT)
