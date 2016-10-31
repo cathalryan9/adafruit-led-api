@@ -115,5 +115,11 @@ def get_files():
 
     return jsonify({'file': files})
 
+@app.route('/stop', methods=['POST'])
+def stop_flask():
+    # TODO Could be done better
+    
+    os.system('sudo reboot')
+
 if __name__ == '__main__':
     app.run(debug=True,host=config.HOST_IP_ADDRESS + ':' + config.HOST_PORT)
