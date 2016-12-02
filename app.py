@@ -14,7 +14,7 @@ dirpath = os.path.dirname(abspath)
 os.chdir(dirpath)
 
 app = Flask(__name__)
-#curl -H "Content-type: application/json" -X POST -d {'file': 'runtext.ppm' }  http://127.0.0.1:5000/run
+#curl -H "Content-type: application/json" -X POST -d {'file': 'runtext.ppm', 'duration': 10 }  http://127.0.0.1:5000/run
 
 #curl -H "Content-type: application/json" -X POST -F "filename=test.jpg" http://127.0.0.1:5000/file
 #curl -X POST -F 'file=@"test.jpg"' http://127.0.0.1:5000/file
@@ -43,7 +43,6 @@ def get_parameter():
 def set_parameter():
     
     conn = sqlite3.connect(config.DATABASE_NAME)
-    #print(str(parameter))
     
     value = request.json['value']
     name = request.json['name']
@@ -69,11 +68,9 @@ def post_file():
         filename = secure_filename(file.filename)
         print("Try to save")
         os.path.join('../../')
-        #file.save(os.path.join("bah"))
         file.save(os.path.join(config.UPLOAD_FOLDER, filename))
         print("saved")
         conn = sqlite3.connect(config.DATABASE_NAME)
-        # print(str(parameter))
 
         name = request.json['name']
         # TODO don't add duplicates
@@ -88,13 +85,13 @@ def post_file():
 @app.route('/run', methods=['POST'])
 def run_command():
     print(request.data)
-
     file = request.json['file']
+
     print(file)
     if file.endswith('.ppm'):
-        rc.run_command_ppm(file)
-    elif file.endswith(('.gif','.jpg','.jpeg')):
-        rc.run_command_gif(file)
+        rc.run_command_ppm(request)
+    elif file.endswith(('.gif','.jpg','.jpeg','.png')):
+        rc.run_command_gif(request)
 
     return redirect(request.url)
 
@@ -117,9 +114,9 @@ def get_files():
 
 @app.route('/stop', methods=['POST'])
 def stop_flask():
-    # TODO Could be done better
-    
+
+    #  TODO could be done better
     os.system('sudo reboot')
 
 if __name__ == '__main__':
-    app.run(debug=True,host=config.HOST_IP_ADDRESS + ':' + config.HOST_PORT)
+    app.run(debug=True,host='127.0.0.1')
