@@ -18,6 +18,10 @@ app = Flask(__name__)
 
 #curl -H "Content-type: application/json" -X POST -F "filename=test.jpg" http://127.0.0.1:5000/file
 #curl -X POST -F 'file=@"test.jpg"' http://127.0.0.1:5000/file
+@app.route("/")
+def index():
+    message="Welcome to the home page"
+    return render_template('index.html', data=message)
 
 @app.route('/parameter', methods=['GET'])
 def get_parameter():
@@ -35,8 +39,10 @@ def get_parameter():
             parameters.append(value)
                       
         conn.commit()
-    
-    return jsonify({'parameter':parameters})
+    print(parameters)
+
+    #return jsonify({'parameter':parameters})
+    return render_template('index.html', data=parameters)
    
 
 @app.route('/parameter', methods=['PUT'])
@@ -87,6 +93,7 @@ def run_command():
     print(request.data)
     file = request.json['file']
 
+    #Put in thread here to run command?
     print(file)
     if file.endswith('.ppm'):
         rc.run_command_ppm(request)
@@ -107,10 +114,14 @@ def get_files():
         for row in rows:
             value = {'id': row[0], 'name': row[1]}
             files.append(value)
-
         conn.commit()
 
-    return jsonify({'file': files})
+    if files == []:
+        files="No Files"
+
+    #return jsonify({'file': files})
+    return render_template('index.html', data=files)
+
 
 @app.route('/stop', methods=['POST'])
 def stop_flask():
@@ -119,4 +130,4 @@ def stop_flask():
     os.system('sudo reboot')
 
 if __name__ == '__main__':
-    app.run(debug=True,host='127.0.0.1')
+    app.run(debug=True,host="127.0.0.1")
