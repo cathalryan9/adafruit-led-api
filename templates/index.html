@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>LED-Interface</title>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.2/react.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.2/react.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.2/JSXTransformer.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
 
@@ -16,11 +16,14 @@
     <script src="{{ url_for('static', filename='Footer.js') }}" type="text/jsx"></script>
     <script src="{{ url_for('static', filename='Layout.js') }}" type="text/jsx"></script>
     <script src="{{ url_for('static', filename='List.js') }}" type="text/jsx"></script>
+        <script src="{{ url_for('static', filename='Parameter.js') }}" type="text/jsx"></script>
+
     <!--need to improve this script-->
     <script>
     var data='{{ data|tojson }}';
-    var data = JSON.parse(data);
-    console.log(data);
+    var input_data = JSON.parse(data);
+    var pageName='{{page}}';
+
     </script>
 
     <script src="{{ url_for('static', filename='main.js') }}" type="text/jsx"></script>

@@ -18,7 +18,7 @@ app = Flask(__name__)
 
 #curl -H "Content-type: application/json" -X POST -F "filename=test.jpg" http://127.0.0.1:5000/file
 #curl -X POST -F 'file=@"test.jpg"' http://127.0.0.1:5000/file
-@app.route("/")
+@app.route('/')
 def index():
     message="Welcome to the home page"
     return render_template('index.html', data=message)
@@ -42,7 +42,7 @@ def get_parameter():
     print(parameters)
 
     #return jsonify({'parameter':parameters})
-    return render_template('index.html', data=parameters)
+    return render_template('index.html', data=parameters, page='Parameter')
    
 
 @app.route('/parameter', methods=['PUT'])
@@ -120,7 +120,7 @@ def get_files():
         files="No Files"
 
     #return jsonify({'file': files})
-    return render_template('index.html', data=files)
+    return render_template('index.html', data=files, page='File')
 
 
 @app.route('/stop', methods=['POST'])

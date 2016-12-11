@@ -5,7 +5,7 @@ class List extends React.Component {
 
           return (
              <div>
-             <div>{{ data }}</div>
+             <div>dadadada</div>
              </div>
           );
        }

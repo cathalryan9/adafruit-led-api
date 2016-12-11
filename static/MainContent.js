@@ -6,6 +6,7 @@ class MainContent extends React.Component{
 
          <div>
          Main Content
+         <List />
          </div>
       );
    }
