@@ -1,14 +1,11 @@
 var Nav = ReactBootstrap.Nav;
 var NavItem = ReactBootstrap.NavItem;
 
-
-
 class NavBar extends React.Component{
 
    render() {
 
       return (
-
         <div>
             <Nav bsStyle="pills" justified>
                 <NavItem href="/"><strong>LED-Interface</strong></NavItem>

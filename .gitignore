@@ -87,3 +87,9 @@ ENV/
 
 # Rope project settings
 .ropeproject
+
+# Node
+node_modules/
+
+# React bootstrap
+static/react-bootstrap

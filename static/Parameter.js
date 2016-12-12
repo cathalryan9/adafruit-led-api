@@ -1,6 +1,5 @@
 class Parameter extends React.Component {
 
-
        render() {
 
           return (
