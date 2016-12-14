@@ -1,5 +1,5 @@
 #!flask/bin/python
-from flask import Flask, render_template, jsonify, request, redirect, url_for
+from flask import Flask, render_template, jsonify, request, redirect, url_for, Response
 import sqlite3
 import json
 import config
@@ -100,7 +100,7 @@ def run_command():
     elif file.endswith(('.gif','.jpg','.jpeg','.png')):
         rc.run_command_gif(request)
 
-    return redirect(request.url)
+    return Response(json.dumps({'success':True}), 200, {'ContentType':'application/json'})
 
 @app.route('/file', methods=['GET'])
 def get_files():
