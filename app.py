@@ -63,30 +63,34 @@ def set_parameter():
 
 @app.route('/file', methods=['POST'])
 def post_file():
-    print(request.files)
-    if 'file' not in request.files:
-        print("file not in request")
-        return redirect(request.url)
-    file = request.files['file']
-    print(file.filename)
-
-    if file.filename:
-        filename = secure_filename(file.filename)
-        print("Try to save")
-        os.path.join('../../')
-        file.save(os.path.join(config.UPLOAD_FOLDER, filename))
-        print("saved")
-        conn = sqlite3.connect(config.DATABASE_NAME)
-
-        name = request.json['name']
-        # TODO don't add duplicates
-        cmd = "INSERT INTO FILE (NAME) VALUES ('" + name + "')"
-        conn.execute(cmd)
-        conn.commit()
-        conn.close()
-        return redirect(request)
-    else:
-        return redirect(request.url)
+    print(request.method)
+    f = request.files['file']
+    print(f)
+    f.save(secure_filename(f.filename))
+    #return 'file uploaded successfully'
+    # if 'file' not in request.files:
+    #     print("file not in request")
+    #     return redirect(request.url)
+    # file = request.files['file']
+    # print(file.filename)
+    #
+    # if file.filename:
+    #     filename = secure_filename(file.filename)
+    #     print("Try to save")
+    #     os.path.join('../../')
+    #file.save(os.path.join(config.UPLOAD_FOLDER, 'bah'))
+    #     print("saved")
+    #     conn = sqlite3.connect(config.DATABASE_NAME)
+    #
+    #     name = request.json['name']
+    #     # TODO don't add duplicates
+    #     cmd = "INSERT INTO FILE (NAME) VALUES ('" + name + "')"
+    #     conn.execute(cmd)
+    #     conn.commit()
+    #     conn.close()
+    #     return redirect(request)
+    # else:
+    return 200
 
 @app.route('/run', methods=['POST'])
 def run_command():

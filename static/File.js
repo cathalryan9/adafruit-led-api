@@ -8,7 +8,9 @@ class File extends React.Component {
         var httpPostToAPI = function(event){
        var url = "http://127.0.0.1:5000/run";
         var method = "POST";
-        var postData = '{"file": "example.jpg", "duration": 10 }';
+        var file_name = document.getElementById("file_name_input").value;
+        console.log(file_name);
+        var postData = '{"file": "' + document.getElementById("file_name_input").value + '", "duration": 10 }';
 
         // You REALLY want async = true.
         // Otherwise, it'll block ALL execution waiting for server response.
@@ -48,8 +50,9 @@ class File extends React.Component {
           return (
              <div>
              <div>{{ input_data }}</div>
-             <input></input>
+             <input id='file_name_input'></input>
              <Button bsStyle="primary" onClick={httpPostToAPI}>Default</Button>
+             <Upload />
              </div>
           );
        }

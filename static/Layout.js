@@ -2,7 +2,7 @@ class Layout extends React.Component {
 
        render() {
 
-        var contentPages = { "Parameter": Parameter, "File": File };
+        var contentPages = { "Parameter": Parameter, "File": File, "Upload": Upload};
 
         if (this.props.page.pageName in contentPages){
                var Page = React.createElement(contentPages[this.props.page.pageName]);
