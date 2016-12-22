@@ -41,7 +41,7 @@ class Upload extends React.Component {
             <form action = "http://127.0.0.1:5000/file" encType = 'multipart/form-data'
 method = "POST" >
          <input type = "file" name = "file" />
-         <input type = "submit"/>
+         <input type = "submit" value="Upload"/>
       </form>
 
              </div>

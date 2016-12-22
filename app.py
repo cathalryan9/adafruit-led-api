@@ -103,22 +103,28 @@ def run_command():
         rc.run_command_ppm(request)
     elif file.endswith(('.gif','.jpg','.jpeg','.png')):
         rc.run_command_gif(request)
+    elif file.endswith(('clock')):
+        rc.run_command_clock(request)
 
     return Response(json.dumps({'success':True}), 200, {'ContentType':'application/json'})
 
 @app.route('/file', methods=['GET'])
 def get_files():
-    conn = sqlite3.connect(config.DATABASE_NAME)
-    with conn:
-        cur = conn.cursor()
+    #TODO: Problems with FILES table? sqlite3.OperationalError OperationalError: no such table: FILES
 
-        cur.execute("SELECT * FROM FILES")
-        rows = cur.fetchall()
-        files = []
-        for row in rows:
-            value = {'id': row[0], 'name': row[1]}
-            files.append(value)
-        conn.commit()
+    #conn = sqlite3.connect(config.DATABASE_NAME)
+    #with conn:
+
+        #cur = conn.cursor()
+
+        #cur.execute("SELECT * FROM FILES")
+        #rows = cur.fetchall()
+    files = []
+        #for row in rows:
+            #value = {'id': row[0], 'name': row[1]}
+            #files.append(value)
+        #conn.commit()
+
 
     if files == []:
         files="No Files"

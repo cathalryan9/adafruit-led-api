@@ -30,6 +30,7 @@ else:
 
 # TODO: Populate PARAMETER table with default values
 # TODO: Install virtualenv and flask
+# TODO: Install node and react
 
 # TODO: Make all files. Look in all directories for Makefile. Make if there is one.
 try:
