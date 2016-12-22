@@ -45,6 +45,9 @@ def run_command_clock(request):
     os.chdir(config.DEMO_FILE_PATH)
     #file = request.json['file']
     play_duration = request.json['duration']
+
     command = 'sudo ./demo -t %d %s %s -D 12' % (play_duration, config.LARGE_DISPLAY_PARAMETER, config.GPIO_MAPPING)
     print(command)
+    os.system(command)
+
     print('Clock run')
