@@ -19,6 +19,10 @@ httpPostToAPI(e, mode){
             console.log(file_name);
             var postData = '{"file": "' + document.getElementById("file_name_input").value + '", "duration": 10 }';
         }
+        else if(mode=='countdown') {
+
+            var postData = '{"file": "' + mode + '", "duration": 10 }';
+        }
 
         var async = true;
         var request = new XMLHttpRequest();
@@ -50,8 +54,12 @@ httpPostToAPI(e, mode){
                   <Col xs={6} md={4}>
                      <Button bsStyle="primary" bsSize="large" block onClick={(e) => this.httpPostToAPI(e, 'clock')}>Clock</Button>
                   </ Col>
+                  <Col xs={6} md={4}>
+                     <Button bsStyle="primary" bsSize="large" block onClick={(e) => this.httpPostToAPI(e, 'countdown')}>Countdown</Button>
+                  </ Col>
                 </Row>
              </Grid>
+             <RunText />
              <Upload />
              </div>
           );

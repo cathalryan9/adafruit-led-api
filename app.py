@@ -1,13 +1,16 @@
 #!flask/bin/python
+import sys
+sys.path.insert(0,'/home/cathal/git/adafruit-led-api/matrix/python/samples')
 from flask import Flask, render_template, jsonify, request, redirect, url_for, Response
 import sqlite3
 import json
 import config
 from werkzeug.utils import secure_filename
 #add requests. Gets the request in json
+import runtext
 
 import run_command as rc
-
+#from runtext.py import runtext.py
 import os
 abspath = os.path.abspath('app.py')
 dirpath = os.path.dirname(abspath)
@@ -105,8 +108,25 @@ def run_command():
         rc.run_command_gif(request)
     elif file.endswith(('clock')):
         rc.run_command_clock(request)
+    elif file.endswith(('countdown')):
+        rc.run_command_countdown(request)
 
     return Response(json.dumps({'success':True}), 200, {'ContentType':'application/json'})
+
+@app.route('/runtext', methods=['POST'])
+def run_text():
+    #text = request.json['text']
+    #colour = request.json['colour']
+    #font = request.json['font']
+
+    #Pass request to runtext
+
+    parser = runtext.RunText()
+    #if (not parser.process()):
+    #    parser.print_help()
+    return Response(json.dumps({'success':True}), 200, {'ContentType':'application/json'})
+
+
 
 @app.route('/file', methods=['GET'])
 def get_files():
@@ -140,4 +160,4 @@ def stop_flask():
     os.system('sudo reboot')
 
 if __name__ == '__main__':
-    app.run(debug=True,host="127.0.0.1")
+    app.run(debug=True,host=config.HOST_IP_ADDRESS)

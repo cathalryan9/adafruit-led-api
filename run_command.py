@@ -51,3 +51,7 @@ def run_command_clock(request):
     os.system(command)
 
     print('Clock run')
+
+def run_command_countdown(request):
+    #TODO Implement countdown timer for New Years
+    print('countdown')

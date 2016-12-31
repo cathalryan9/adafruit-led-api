@@ -37,11 +37,16 @@ try:
     print('Making files for rpi-rgb-led-matrix library')
     os.chdir('matrix')
     os.system('make')
-    os.chdir('examples-api-use')
+    os.chdir('python')
+    os.system('sudo apt-get update && sudo apt-get install python2.7-dev python-pillow -y')
+    os.system('make build-python')
+    os.system('sudo make install-python')
+    os.chdir('../examples-api-use')
     os.system('make')
     os.chdir('../utils')
     os.system('sudo apt-get install libgraphicsmagick++-dev libwebp-dev -y')
     os.system('make led-image-viewer')
+
 
 
 except Exception as e:
