@@ -121,7 +121,7 @@ def run_text():
 
     #Pass request to runtext
 
-    parser = runtext.RunText()
+    #parser = runtext.RunText()
     #if (not parser.process()):
     #    parser.print_help()
     return Response(json.dumps({'success':True}), 200, {'ContentType':'application/json'})
