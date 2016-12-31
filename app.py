@@ -7,7 +7,7 @@ import json
 import config
 from werkzeug.utils import secure_filename
 #add requests. Gets the request in json
-import runtext
+#import runtext
 
 import run_command as rc
 #from runtext.py import runtext.py
