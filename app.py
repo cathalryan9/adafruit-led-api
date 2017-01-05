@@ -7,10 +7,9 @@ import json
 import config
 from werkzeug.utils import secure_filename
 #add requests. Gets the request in json
-#import runtext
+import runtext
 
 import run_command as rc
-#from runtext.py import runtext.py
 import os
 abspath = os.path.abspath('app.py')
 dirpath = os.path.dirname(abspath)
@@ -115,15 +114,9 @@ def run_command():
 
 @app.route('/runtext', methods=['POST'])
 def run_text():
-    #text = request.json['text']
-    #colour = request.json['colour']
-    #font = request.json['font']
-
-    #Pass request to runtext
-
-    #parser = runtext.RunText()
-    #if (not parser.process()):
-    #    parser.print_help()
+    parser = runtext.RunText(request)
+    if (not parser.process()):
+       parser.print_help()
     return Response(json.dumps({'success':True}), 200, {'ContentType':'application/json'})
 
 
