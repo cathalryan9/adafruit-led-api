@@ -46,7 +46,7 @@ def run_command_clock(request):
     #file = request.json['file']
     play_duration = request.json['duration']
 
-    command = 'sudo ./demo  %s %s -D 12' % ( config.LARGE_DISPLAY_PARAMETER, config.GPIO_MAPPING)
+    command = 'sudo ./demo  %s %s -D 12 -R180' % ( config.LARGE_DISPLAY_PARAMETER, config.GPIO_MAPPING)
     print(command)
     os.system(command)
 
