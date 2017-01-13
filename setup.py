@@ -35,7 +35,17 @@ else:
 # TODO: Make all files. Look in all directories for Makefile. Make if there is one.
 try:
     print('Making files for rpi-rgb-led-matrix library')
-    os.chdir('matrix')
+    os.system('sudo apt-get install python-virtualenv')
+    os.system('virtualenv flask')
+    os.system('. flask/bin/activate')
+    os.system('sudo pip install Flask')
+    os.system('sudo pip install Pillow')
+    os.system('sudo npm install -g bower')
+    os.system('bower init')
+    os.system('npm init')
+    os.system('npm install --save-dev bower')
+    os.system('bower install')
+    os.chdir('rpi-rgb-led-matrix')
     os.system('make')
     os.chdir('python')
     os.system('sudo apt-get update && sudo apt-get install python2.7-dev python-pillow -y')
