@@ -1,0 +1,43 @@
+{
+  "name": "adafruit-api",
+  "version": "1.0.0",
+  "description": "Web API for LED panels powered by Raspberry Pi and Adafruit hat.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cathalryan9/adafruit-led-api.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cathalryan9/adafruit-led-api/issues"
+  },
+  "homepage": "https://github.com/cathalryan9/adafruit-led-api#readme",
+  "devDependencies": {
+    "bower": "^1.8.0"
+  },
+  "dependencies": {
+    "babelify": "^7.3.0",
+    "browserify": "^13.3.0",
+    "react": "^15.4.2",
+    "react-color": "^2.11.1",
+    "react-dom": "^15.4.2",
+    "webpack": "^1.14.0"
+  },
+  "browserify": {
+    "transform": [
+      [
+        "babelify",
+        {
+          "sourceMapRelative": "$PWD"
+        },
+        [
+          "reactify"
+        ]
+      ]
+    ]
+  }
+}

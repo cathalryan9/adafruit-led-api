@@ -1,0 +1,20 @@
+{
+  "name": "adafruit-api",
+  "homepage": "https://github.com/cathalryan9/adafruit-led-api",
+  "authors": [
+    "cathalryan9 <cathalryan92@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "babel": "^5.8.38"
+  }
+}

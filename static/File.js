@@ -1,3 +1,4 @@
+import RunText from './RunText';
 var Button = ReactBootstrap.Button;
 var Grid = ReactBootstrap.Grid;
 var Row = ReactBootstrap.Row;
@@ -44,7 +45,7 @@ httpPostToAPI(e, mode){
 
           return (
              <div>
-             <div>{{ input_data }}</div>
+             <div>{ input_data }</div>
              <input id='file_name_input'></input>
              <Grid>
                 <Row className="show-grid">
@@ -60,8 +61,10 @@ httpPostToAPI(e, mode){
                 </Row>
              </Grid>
              <RunText />
-             <Upload />
+
+
              </div>
           );
        }
 }
+export default File;

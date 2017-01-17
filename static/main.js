@@ -1,3 +1,8 @@
-var props = {page: {pageName}};
+var props = {page: {pageName},data: {input_data}};
 
-React.render(React.createElement(Layout,props), document.getElementById('layout') );
+//var Sketch = require('react-color');
+
+import Layout from './Layout';
+
+//Need to import rest of files
+ReactDOM.render(React.createElement(Layout,props), document.getElementById('layout') );

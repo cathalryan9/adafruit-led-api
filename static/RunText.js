@@ -1,9 +1,4 @@
 var Button = ReactBootstrap.Button;
-var Grid = ReactBootstrap.Grid;
-var Row = ReactBootstrap.Row;
-var Col = ReactBootstrap.Col;
-
-
 class RunText extends React.Component {
 
 httpPostToAPI(e){
@@ -33,3 +28,5 @@ httpPostToAPI(e){
           );
        }
 }
+
+export default RunText;

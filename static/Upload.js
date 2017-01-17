@@ -48,3 +48,4 @@ method = "POST" >
           );
        }
 }
+export default Upload;

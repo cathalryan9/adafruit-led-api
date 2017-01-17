@@ -1,3 +1,4 @@
+import List from './List';
 class MainContent extends React.Component{
 
    render() {
@@ -11,3 +12,4 @@ class MainContent extends React.Component{
       );
    }
 }
+export default MainContent;

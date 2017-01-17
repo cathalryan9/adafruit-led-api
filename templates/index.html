@@ -5,22 +5,16 @@
     <meta charset="UTF-8">
     <title>LED-Interface</title>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.2/react.js"></script>
+    <script src="{{ url_for('static', filename='bower_components/react/react.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='bower_components/react/react-dom.min.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.2/JSXTransformer.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
+    <script src="{{ url_for('static', filename='bower_components/babel/browser.min.js') }}"></script>
 
     <script src="{{ url_for('static', filename='bower_components/react-bootstrap/react-bootstrap.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='Header.js') }}" type="text/jsx"></script>
-    <script src="{{ url_for('static', filename='NavBar.js') }}" type="text/jsx"></script>
-    <script src="{{ url_for('static', filename='MainContent.js') }}" type="text/jsx"></script>
 
-    <script src="{{ url_for('static', filename='Footer.js') }}" type="text/jsx"></script>
-    <script src="{{ url_for('static', filename='Layout.js') }}" type="text/jsx"></script>
-    <script src="{{ url_for('static', filename='List.js') }}" type="text/jsx"></script>
-    <script src="{{ url_for('static', filename='Parameter.js') }}" type="text/jsx"></script>
-    <script src="{{ url_for('static', filename='File.js') }}" type="text/jsx"></script>
-        <script src="{{ url_for('static', filename='Upload.js') }}" type="text/jsx"></script>
-            <script src="{{ url_for('static', filename='RunText.js') }}" type="text/jsx"></script>
+
+
 
 
 
@@ -29,14 +23,17 @@
     <script>
     var data='{{ data|tojson }}';
     var input_data = JSON.parse(data);
+    console.log(input_data);
     var pageName='{{page}}';
     console.log(pageName);
     </script>
 
-    <script src="{{ url_for('static', filename='main.js') }}" type="text/jsx"></script>
+    <script src="{{ url_for('static', filename='bundle.js') }}" type="text/jsx"></script>
+
 </head>
 
 <body>
      <div id="layout">Default Layout</div>
+
 </body>
 </html>

@@ -1,4 +1,4 @@
-
+import NavBar from './NavBar';
 
 class Header extends React.Component{
 
@@ -13,3 +13,4 @@ class Header extends React.Component{
       );
    }
 }
+export default NavBar;
