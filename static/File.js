@@ -1,4 +1,6 @@
 import RunText from './RunText';
+import React from 'react';
+import { GithubPicker } from 'react-color';
 var Button = ReactBootstrap.Button;
 var Grid = ReactBootstrap.Grid;
 var Row = ReactBootstrap.Row;
@@ -6,6 +8,19 @@ var Col = ReactBootstrap.Col;
 
 
 class File extends React.Component {
+
+constructor() {
+    super();
+    this.handleChange = this.handleChange.bind(this)
+    this.state = {
+      color: {
+      r: '184',
+      g: '0',
+      b: '0',
+      a: '1',
+    },
+    };
+  }
 
 httpPostToAPI(e, mode){
         var url = "http://127.0.0.1:5000/run";
@@ -39,17 +54,24 @@ httpPostToAPI(e, mode){
         console.log(postData);
 
         request.send(postData);
-       }
+       };
+
+
+
+  handleChange(color){
+    this.setState({ color: color.rgb });
+    console.log(this.state.color);
+  };
 
        render() {
 
           return (
              <div>
              <div>{ input_data }</div>
-             <input id='file_name_input'></input>
              <Grid>
                 <Row className="show-grid">
                   <Col xs={6} md={4}>
+                     <input id='file_name_input'></input>
                      <Button bsStyle="primary" bsSize="large" block onClick={(e) => this.httpPostToAPI(e, 'file')}>Play File</Button>
                   </ Col>
                   <Col xs={6} md={4}>
@@ -60,9 +82,9 @@ httpPostToAPI(e, mode){
                   </ Col>
                 </Row>
              </Grid>
-             <RunText />
+             <RunText color={this.state.color} />
 
-
+             <GithubPicker color={ this.state.color } onChange={ this.handleChange } />
              </div>
           );
        }

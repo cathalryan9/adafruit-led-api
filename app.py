@@ -1,6 +1,6 @@
 #!flask/bin/python
 import sys
-sys.path.insert(0,'/home/cathal/git/adafruit-led-api/matrix/python/samples')
+sys.path.insert(0,'/home/cathal/git/adafruit-api/rpi-rgb-led-matrix/python/samples')
 from flask import Flask, render_template, jsonify, request, redirect, url_for, Response
 import sqlite3
 import json
@@ -114,6 +114,9 @@ def run_command():
 
 @app.route('/runtext', methods=['POST'])
 def run_text():
+    print(request.json['colour']['red'])
+    print(request.json['colour']['green'])
+    print(request.json['colour']['blue'])
     parser = runtext.RunText(request)
     if (not parser.process()):
        parser.print_help()
