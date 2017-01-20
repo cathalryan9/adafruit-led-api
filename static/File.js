@@ -19,7 +19,10 @@ constructor() {
       b: '0',
       a: '1',
     },
+
     };
+    this.colours = ['#B80000', '#DB3E00', '#FCCB00', '#008B02', '#1273DE', '#004DCF', '#5300EB', '#EB9694', '#FAD0C3', '#FEF3BD', '#FFFFFF', '#BEDADC', '#C4DEF6', '#BED3F3'];
+
   }
 
 httpPostToAPI(e, mode){
@@ -70,21 +73,41 @@ httpPostToAPI(e, mode){
              <div>{ input_data }</div>
              <Grid>
                 <Row className="show-grid">
-                  <Col xs={6} md={4}>
-                     <input id='file_name_input'></input>
+                  <Col className="fileColumn" xs={6} md={4}>
+
+                     <input className="form-control" id='file_name_input'></input>
+                  </ Col>
+                  <Col className="fileColumn" xs={6} md={4}>
                      <Button bsStyle="primary" bsSize="large" block onClick={(e) => this.httpPostToAPI(e, 'file')}>Play File</Button>
+
                   </ Col>
-                  <Col xs={6} md={4}>
+                  <Col className="fileColumn" xs={6} md={4}>
                      <Button bsStyle="primary" bsSize="large" block onClick={(e) => this.httpPostToAPI(e, 'clock')}>Clock</Button>
-                  </ Col>
-                  <Col xs={6} md={4}>
-                     <Button bsStyle="primary" bsSize="large" block onClick={(e) => this.httpPostToAPI(e, 'countdown')}>Countdown</Button>
+
                   </ Col>
                 </Row>
-             </Grid>
-             <RunText color={this.state.color} />
+                <Row className="show-grid">
 
-             <GithubPicker color={ this.state.color } onChange={ this.handleChange } />
+                  <RunText color={this.state.color} />
+
+                  <Col className="fileColumn" xs={6} md={4}>
+                  <GithubPicker triangle = 'hide' width='450px' colors={this.colours} color={ this.state.color } onChange={ this.handleChange } />
+
+                  </ Col>
+
+                </Row>
+                <Row className="show-grid">
+
+                  <Col className="fileColumn" xs={6} md={4}>
+                               <Button bsStyle="primary" bsSize="large" block onClick={(e) => this.httpPostToAPI(e, 'countdown')}>Countdown</Button>
+
+                  </ Col>
+
+                </Row>
+
+             </Grid>
+
+
              </div>
           );
        }

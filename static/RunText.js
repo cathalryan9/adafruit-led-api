@@ -28,19 +28,14 @@ httpPostToAPI(e){
 
           return (
              <div>
-             <Grid>
-                <Row className="show-grid">
-                  <Col xs={6} md={4}>
-                  <input id='text_input'></input>
+
+                  <Col className="fileColumn" xs={6} md={4}>
+                  <input className="form-control" id='text_input'></input>
                   </ Col>
-                  <Col xs={6} md={4}>
+                  <Col className="fileColumn" xs={6} md={4}>
 <Button style={{background: `rgba(${ this.props.color.r }, ${ this.props.color.g }, ${ this.props.color.b }, ${ this.props.color.a })`}} bsSize="large" block onClick={(e) => this.httpPostToAPI()}>Text</Button>
                   </ Col>
-                  <Col xs={6} md={4}>
 
-                  </ Col>
-                </Row>
-             </Grid>
 
 
              </div>
