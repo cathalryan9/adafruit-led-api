@@ -2,6 +2,7 @@
 import config
 import sqlite3
 import os
+import fnmatch
 abspath = os.path.abspath('setup.py')
 dirpath = os.path.dirname(abspath)
 os.chdir(dirpath)
@@ -10,12 +11,13 @@ print(os.system('pwd'))
 
 # Create database and tables
 print('Checking if database has been created')
+
 if not os.path.isfile(config.DATABASE_NAME):
     print('Creating database')
     conn = sqlite3.connect(config.DATABASE_NAME)
     with conn:
         conn.execute('CREATE TABLE PARAMETER (ID INT PRIMARY KEY,NAME TEXT NOT NULL, VALUE TEXT);')
-        conn.execute('CREATE TABLE FILES (ID INT PRIMARY KEY,NAME TEXT NOT NULL);')
+        conn.execute('CREATE TABLE FILE (ID INT PRIMARY KEY,NAME TEXT NOT NULL, TYPE TEXT NOT NULL);')
 
         print('Populating database')
         conn.execute('INSERT INTO PARAMETER (NAME, VALUE) VALUES ("--led-brightness", "30");')
@@ -24,6 +26,16 @@ if not os.path.isfile(config.DATABASE_NAME):
         conn.execute('INSERT INTO PARAMETER (NAME, VALUE) VALUES ("-m", "100");')
         conn.execute('INSERT INTO PARAMETER (NAME, VALUE) VALUES ("-R", "0");')
 
+        #Get list of files in uploads
+        files = []
+        for root, subdirs, files in os.walk('uploads'):
+            for filename in fnmatch.filter(files, '*'):
+                files.append(os.path.join(root, filename))
+        for file in files:
+            filename, file_extension = os.path.splitext(file)
+            print(filename)
+            print(file_extension)
+            conn.execute('INSERT INTO FILE (NAME, TYPE) VALUES ("'+filename+'","'+file_extension+'");')
 
 else:
     print('Database %s already exists' % config.DATABASE_NAME)

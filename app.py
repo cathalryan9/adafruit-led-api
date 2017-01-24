@@ -128,24 +128,24 @@ def run_text():
 def get_files():
     #TODO: Problems with FILES table? sqlite3.OperationalError OperationalError: no such table: FILES
 
-    #conn = sqlite3.connect(config.DATABASE_NAME)
-    #with conn:
+    conn = sqlite3.connect(config.DATABASE_NAME)
+    with conn:
 
-        #cur = conn.cursor()
+        cur = conn.cursor()
 
-        #cur.execute("SELECT * FROM FILES")
-        #rows = cur.fetchall()
+        cur.execute("SELECT * FROM FILE")
+        rows = cur.fetchall()
     files = []
-        #for row in rows:
-            #value = {'id': row[0], 'name': row[1]}
-            #files.append(value)
-        #conn.commit()
-
+    for row in rows:
+        value = {"id": row[0], "name": row[1], "type": row[2]}
+        files.append(value)
+        print(value)
+    conn.commit()
 
     if files == []:
         files="No Files"
-
-    #return jsonify({'file': files})
+    files = {'files': files}
+    print(files)
     return render_template('index.html', data=files, page='File')
 
 
