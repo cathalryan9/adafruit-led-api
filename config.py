@@ -8,9 +8,9 @@ DATABASE_NAME = 'rave.db'
 
 UPLOAD_FOLDER = DIRPATH + '/uploads/'
 
-DEMO_FILE_PATH = DIRPATH + '/matrix/examples-api-use/'
+DEMO_FILE_PATH = DIRPATH + '/rpi-rgb-led-matrix/examples-api-use/'
 
-LED_IMAGE_VIEWER = DIRPATH + '/matrix/utils/'
+LED_IMAGE_VIEWER = DIRPATH + '/rpi-rgb-led-matrix/utils/'
 
 GPIO_MAPPING = '--led-gpio-mapping=adafruit-hat'
 LARGE_DISPLAY_PARAMETER = '-L'

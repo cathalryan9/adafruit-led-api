@@ -37,8 +37,9 @@ changeSelectedFile(e){
 }
 
 componentWillMount(){
-    for(var i in this.props.data.input_data.files)
-        this.state.files.push(this.props.data.input_data.files[i].name);
+    var data = this.props.data.input_data;
+    for(var i in data.files)
+            this.state.files.push(data.files[i].name + data.files[i].type);
 }
 
 httpPostToAPI(e, mode){
@@ -47,15 +48,11 @@ httpPostToAPI(e, mode){
         console.log(mode);
         if (mode == 'clock'){
             var postData = '{"file": "' + mode + '", "duration": 10 }';
-
         }
         else if(mode=='file') {
-            var file_name = document.getElementById("file_name_input").value;
-            console.log(file_name);
-            var postData = '{"file": "' + document.getElementById("file_name_input").value + '", "duration": 10 }';
+            var postData = '{"file": "' + this.state.dropdownValue + '", "duration": 10 }';
         }
         else if(mode=='countdown') {
-
             var postData = '{"file": "' + mode + '", "duration": 10 }';
         }
 
@@ -69,9 +66,7 @@ httpPostToAPI(e, mode){
         request.open(method, url, async);
         request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
 
-        console.log('Goes throught the function');
         console.log(postData);
-
         request.send(postData);
        };
 
@@ -83,11 +78,12 @@ handleChange(color){
        render() {
 
           return (
+          <div>
              <Grid>
                 <Row className="show-grid">
                   <Col className="fileColumn" xs={6} md={4}>
                     <DropdownButton title={this.state.dropdownValue} onSelect={(e) => this.changeSelectedFile(e)} id="bg-nested-dropdown">
-                    {this.state.files.map(file => <MenuItem eventKey={file.toString()}key={file.toString()}>{file}</MenuItem>)}
+                    {this.state.files.map(file => <MenuItem eventKey={file} key={file}>{file.replace(/^.*[\\\/]/, '')}</MenuItem>)}
                     </DropdownButton>
                     <input className="form-control" id='file_name_input'></input>
                   </ Col>

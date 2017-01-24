@@ -25,8 +25,7 @@ def run_command_gif(request):
     os.chdir(config.LED_IMAGE_VIEWER)
     file = request.json['file']
     play_duration = request.json['duration']
-    file_path = config.UPLOAD_FOLDER + file
-    print(play_duration)
+    file_path = config.DIRPATH + '/' + file
     print('%d %s %s %s' % (play_duration, config.LARGE_DISPLAY_PARAMETER, config.GPIO_MAPPING, file_path))
     command = 'sudo ./led-image-viewer -t%d %s %s %s' % (play_duration, config.LARGE_DISPLAY_PARAMETER, config.GPIO_MAPPING, file_path)
     print(command)
