@@ -24,6 +24,7 @@
     "browserify": "^13.3.0",
     "react": "^15.4.2",
     "react-color": "^2.11.1",
+    "react-color-picker": "^4.0.2",
     "react-dom": "^15.4.2",
     "webpack": "^1.14.0"
   },
