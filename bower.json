@@ -12,9 +12,12 @@
     "node_modules",
     "bower_components",
     "test",
-    "tests"
+    "tests",
+    "static/bower_components"
   ],
   "dependencies": {
-    "babel": "^5.8.38"
+    "babel": "^5.8.38",
+    "react": "^15.4.2",
+    "react-bootstrap": "^0.30.7"
   }
 }

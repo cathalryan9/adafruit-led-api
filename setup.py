@@ -27,11 +27,11 @@ if not os.path.isfile(config.DATABASE_NAME):
         conn.execute('INSERT INTO PARAMETER (NAME, VALUE) VALUES ("-R", "0");')
 
         #Get list of files in uploads
-        files = []
+        files_array = []
         for root, subdirs, files in os.walk('uploads'):
             for filename in fnmatch.filter(files, '*'):
-                files.append(os.path.join(root, filename))
-        for file in files:
+                files_array.append(os.path.join(root, filename))
+        for file in files_array:
             filename, file_extension = os.path.splitext(file)
             print(filename)
             print(file_extension)
