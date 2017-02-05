@@ -17,11 +17,11 @@
   },
   "homepage": "https://github.com/cathalryan9/adafruit-led-api#readme",
   "devDependencies": {
-    "bower": "^1.8.0"
+    "bower": "^1.8.0",
+    "browserify": "^13.3.0"
   },
   "dependencies": {
     "babelify": "^7.3.0",
-    "browserify": "^13.3.0",
     "react": "^15.4.2",
     "react-color": "^2.11.1",
     "react-color-picker": "^4.0.2",
