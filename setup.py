@@ -45,8 +45,20 @@ else:
 # TODO: Make all files. Look in all directories for Makefile. Make if there is one.
 try:
 
-    os.system('npm install')
-    os.system('bower install')
+    #os.system('npm install')
+    #os.system('bower install')
+
+    os.chdir(dirpath + '/rpi-rgb-led-matrix/include')
+    os.system('wget http://www.sqlite.org/2017/sqlite-autoconf-3170000.tar.gz')
+    os.system('tar xzf sqlite-autoconf-3170000.tar.gz')  # Unpack the source tree into "sqlite"
+    os.system('mkdir bld')  # Build will occur in a sibling directory
+    os.chdir(dirpath + '/rpi-rgb-led-matrix/include/bld')  # Change to the build directory
+    os.system('pwd')
+    os.system('../sqlite-autoconf-3170000/configure')  # Run the configure script
+    os.system('make')  # Run the makefile.
+    os.system('make sqlite3.c')
+    os.system('rm -r ../sqlite-autoconf-*')
+
 
 except Exception as e:
     print ('Failed to install required dependencies')
