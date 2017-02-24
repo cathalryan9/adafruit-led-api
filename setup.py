@@ -45,8 +45,8 @@ else:
 # TODO: Make all files. Look in all directories for Makefile. Make if there is one.
 try:
 
-    #os.system('npm install')
-    #os.system('bower install')
+    os.system('npm install')
+    os.system('bower install')
 
     os.chdir(dirpath + '/rpi-rgb-led-matrix/include')
     os.system('wget http://www.sqlite.org/2017/sqlite-autoconf-3170000.tar.gz')
