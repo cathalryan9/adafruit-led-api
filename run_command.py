@@ -1,5 +1,6 @@
 import os
 import config
+import sqlite3
 
 def run_command_ppm(request):
     #TODO Implement request validation
@@ -12,12 +13,16 @@ def run_command_ppm(request):
     file_path = config.DEMO_FILE_PATH + file
     command = 'sudo ./demo -t %d %s %s -D 1 %s' % (play_duration, config.LARGE_DISPLAY_PARAMETER, config.GPIO_MAPPING, file_path)
     print(command)
-    if os.path.exists(file_path):
-        os.system(command)
-        print('Command run')
 
-    else:
-        print('File not found')
+    try:
+        db_change_state()
+        os.system(command)
+
+        print('Command run')
+    except:
+        if not os.path.exists(file_path):
+            print('File not found')
+
 
 
 def run_command_gif(request):
@@ -30,6 +35,7 @@ def run_command_gif(request):
     command = 'sudo ./led-image-viewer -t%d %s %s %s' % (play_duration, config.LARGE_DISPLAY_PARAMETER, config.GPIO_MAPPING, file_path)
     print(command)
     if os.path.exists(file_path):
+        db_change_state()
         os.system(command)
         print('Command run')
 
@@ -47,6 +53,7 @@ def run_command_clock(request):
 
     command = 'sudo ./demo  %s %s -D 12 -R180' % ( config.LARGE_DISPLAY_PARAMETER, config.GPIO_MAPPING)
     print(command)
+    db_change_state()
     os.system(command)
 
     print('Clock run')
@@ -54,3 +61,8 @@ def run_command_clock(request):
 def run_command_countdown(request):
     #TODO Implement countdown timer for New Years
     print('countdown')
+
+def db_change_state():
+    conn = sqlite3.connect(config.DATABASE_NAME)
+    with conn:
+        conn.execute('UPDATE STATE SET value="stopping" WHERE name="led_panel_state");')
