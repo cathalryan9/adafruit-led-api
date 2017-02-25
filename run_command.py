@@ -1,6 +1,7 @@
 import os
 import config
 import sqlite3
+import time
 
 def run_command_ppm(request):
     #TODO Implement request validation
@@ -66,3 +67,11 @@ def db_change_state():
     conn = sqlite3.connect(config.DATABASE_NAME)
     with conn:
         conn.execute('UPDATE STATE SET value="stopping" WHERE name="led_panel_state");')
+        t = 'led_panel_state'
+        conn.execute('SELECT value FROM STATE WHERE name=?', t)
+        print conn.fetchone()
+        led_panel_state = conn.fetchone()
+        while led_panel_state is not 'stopped':
+            #sleep(1)
+            print("sleeping")
+            time.sleep(1)
