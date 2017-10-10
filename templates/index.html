@@ -7,23 +7,19 @@
 
     <script src="{{ url_for('static', filename='bower_components/react/react.min.js') }}"></script>
     <script src="{{ url_for('static', filename='bower_components/react/react-dom.min.js') }}"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.2/JSXTransformer.js"></script>
+    <script src="{{ url_for('static', filename='JSXTransformer.js') }}"></script>
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
     <script src="{{ url_for('static', filename='bower_components/babel/browser.min.js') }}"></script>
 
     <script src="{{ url_for('static', filename='bower_components/react-bootstrap/react-bootstrap.min.js') }}"></script>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 
-
-
-
-
-
     <!--need to improve this script-->
     <script>
     var data='{{ data|tojson }}';
+    console.log(data);
     var input_data = JSON.parse(data);
-    console.log(input_data);
     var pageName='{{page}}';
     console.log(pageName);
     </script>

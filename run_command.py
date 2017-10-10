@@ -2,12 +2,11 @@ import os
 import config
 import sqlite3
 import time
+#import subprocess
 
 def run_command_ppm(request):
     #TODO Implement request validation
-    # Run command on RPi
-    # Test command
-    # TODO Fix file paths
+    #TODO Fix file paths
     os.chdir(config.DEMO_FILE_PATH)
     file = request.json['file']
     play_duration = request.json['duration']
@@ -16,15 +15,11 @@ def run_command_ppm(request):
     print(command)
 
     try:
-        db_change_state()
         os.system(command)
-
         print('Command run')
     except:
         if not os.path.exists(file_path):
             print('File not found')
-
-
 
 def run_command_gif(request):
     print('run gif')
@@ -36,8 +31,9 @@ def run_command_gif(request):
     command = 'sudo ./led-image-viewer -t%d %s %s %s' % (play_duration, config.LARGE_DISPLAY_PARAMETER, config.GPIO_MAPPING, file_path)
     print(command)
     if os.path.exists(file_path):
-        db_change_state()
         os.system(command)
+        #subprocess.call(command)
+
         print('Command run')
 
     else:
@@ -45,16 +41,14 @@ def run_command_gif(request):
 
 def run_command_clock(request):
     #TODO Implement request validation
-    # Run command on RPi
-    # Test command
-    # TODO Fix file paths
+    #TODO Fix file paths
     os.chdir(config.DEMO_FILE_PATH)
-    #file = request.json['file']
-    play_duration = request.json['duration']
+    #play_duration = request.json['duration']
+    print("About to play the clock")
 
-    command = 'sudo ./demo  %s %s -D 12 -R180' % ( config.LARGE_DISPLAY_PARAMETER, config.GPIO_MAPPING)
+    command = 'sudo .%sdemo  %s %s -D 12 -R180' % (config.DEMO_FILE_PATH, config.LARGE_DISPLAY_PARAMETER, config.GPIO_MAPPING)
     print(command)
-    db_change_state()
+    #subprocess.call(command)
     os.system(command)
 
     print('Clock run')
@@ -63,15 +57,11 @@ def run_command_countdown(request):
     #TODO Implement countdown timer for New Years
     print('countdown')
 
-def db_change_state():
+
+def db_change_state(changed_value):
+    print("Change state to " + changed_value)
     conn = sqlite3.connect(config.DATABASE_NAME)
+
     with conn:
-        conn.execute('UPDATE STATE SET value="stopping" WHERE name="led_panel_state");')
-        t = 'led_panel_state'
-        conn.execute('SELECT value FROM STATE WHERE name=?', t)
-        print conn.fetchone()
-        led_panel_state = conn.fetchone()
-        while led_panel_state is not 'stopped':
-            #sleep(1)
-            print("sleeping")
-            time.sleep(1)
+        conn.execute('UPDATE STATE SET value="' + changed_value + '" WHERE name="led_panel_state";')
+

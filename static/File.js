@@ -40,6 +40,7 @@ componentWillMount(){
     var data = this.props.data.input_data;
     for(var i in data.files)
             this.state.files.push(data.files[i].name + data.files[i].type);
+
 }
 
 httpPostToAPI(e, mode){
@@ -84,8 +85,7 @@ handleChange(color){
                   <Col className="fileColumn" xs={6} md={4}>
                     <DropdownButton title={this.state.dropdownValue} onSelect={(e) => this.changeSelectedFile(e)} id="bg-nested-dropdown">
                     {this.state.files.map(file => <MenuItem eventKey={file} key={file}>{file.replace(/^.*[\\\/]/, '')}</MenuItem>)}
-                    </DropdownButton>
-                    <input className="form-control" id='file_name_input'></input>
+                    </DropdownButton
                   </ Col>
                   <Col className="fileColumn" xs={6} md={4}>
                      <Button bsStyle="primary" bsSize="large" block onClick={(e) => this.httpPostToAPI(e, 'file')}>Play File</Button>

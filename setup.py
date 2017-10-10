@@ -18,6 +18,7 @@ if not os.path.isfile(config.DATABASE_NAME):
     with conn:
         conn.execute('CREATE TABLE PARAMETER (ID INT PRIMARY KEY,NAME TEXT NOT NULL, VALUE TEXT);')
         conn.execute('CREATE TABLE FILE (ID INT PRIMARY KEY,NAME TEXT NOT NULL, TYPE TEXT NOT NULL);')
+        conn.execute('CREATE TABLE STATE (NAME TEXT NOT NULL PRIMARY KEY, VALUE TEXT NOT NULL);')
 
         print('Populating database')
         conn.execute('INSERT INTO PARAMETER (NAME, VALUE) VALUES ("--led-brightness", "30");')
@@ -59,7 +60,7 @@ try:
     os.system('../sqlite-autoconf-3170000/configure')  # Run the configure script
     os.system('make')  # Run the makefile.
     os.system('make sqlite3.c')
-    os.system('rm -r ../sqlite-autoconf-*')
+    os.system('rm -r ../sqlite-autoconf-317000.*')
 
 
 except Exception as e:
